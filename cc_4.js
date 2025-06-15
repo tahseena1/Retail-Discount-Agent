@@ -30,31 +30,37 @@ const products = [
     inventory: 25
 }];
 
+console.log("Initial Products and Inventory: ", products)
 
 for(let product of products) {
     let discount = 0;
     switch(product.category) {
-        case "Electronics":
+        case "electronics":
             discount = 0.20;
             break;
-        case "Apparel":
+        case "apparel":
             discount = 0.15;
             break;
-        case "Groceries":
+        case "groceries":
             discount = 0.1;
             break;
-        case "Household":
+        case "household":
             discount = 0.1;
             break;
         default:
             discount = 0;
         
     }
+    product.categoryDiscount = discount
 };
 
+console.log("\nDiscounts by Category")
+products.forEach(product => {
+console.log(`${product.category}: ${(product.categoryDiscount)* 100}% discount`)
+});
 
 let customerType = "senior";
-
+let discount2 = 0;
 if (customerType === "senior") {
   discount2 = 0.07;
 } else if (customerType === "student") {
@@ -63,4 +69,57 @@ if (customerType === "senior") {
   discount2 = 0;
 };
 
+console.log("\nDiscounts by Customer Type:");
+console.log("senior: 7% discount");
+console.log("student: 5% discount");
+console.log("regular: 0% discount");
 
+for (let product of products){
+    product.finalPrice = product.price * (1-product.categoryDiscount) * (1-discount2);
+};
+
+const customers = [{
+    customerType: "senior", 
+    customerCart: ["banana", "screwdriver"]
+},
+{
+    customerType: "student",
+    customerCart: ["laptop", "rug"]
+}, 
+{
+    customerType: "regular",
+    customerCart: ["sweater", "laptop"]
+}];
+
+console.log("\nCustomer Checkout with Discounts Applied")
+
+for(let i = 0; i < customers.length; i++) {
+    let customer = customers[i];
+    let customerType = customer.customerType;
+    let cart = customer.customerCart;
+    let discount2 = 0;
+    if (customerType === "senior") {
+        discount2 = 0.07;
+    } else if (customerType === "student") {
+        discount2 = 0.05;
+    } else {
+        discount2 = 0;
+    };
+    let totalCost = 0;
+    for (let item of cart) {
+        let product = products.find(product => product.name === item);
+        if (product && product.inventory > 0) {
+            let productFinalPrice = product.price * (1 - product.categoryDiscount) * (1 - discount2);
+            totalCost += productFinalPrice;
+            product.inventory --;
+
+        };
+    };
+    console.log(`Customer ${i + 1}, (${customerType}): Total Cost = $${totalCost.toFixed(2)}`);
+};
+console.log("\nLaptop Information After Discounts Applied")
+let laptopDiscounted = products[0];
+laptopDiscounted.discountedPrice = laptopDiscounted.price * (1 - laptopDiscounted.categoryDiscount);
+for (let key in laptopDiscounted) {
+    console.log(`${key}: ${laptopDiscounted [key]}`);
+}

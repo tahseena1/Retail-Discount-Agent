@@ -33,7 +33,7 @@ const products = [
 
 for(let product of products) {
     let discount = 0;
-    switch(product) {
+    switch(product.category) {
         case "Electronics":
             discount = 0.20;
             break;
@@ -51,3 +51,16 @@ for(let product of products) {
         
     }
 };
+
+
+let customerType = "senior";
+
+if (customerType === "senior") {
+  discount2 = 0.07;
+} else if (customerType === "student") {
+  discount2 = 0.05;
+} else {
+  discount2 = 0;
+};
+
+

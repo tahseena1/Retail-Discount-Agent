@@ -104,7 +104,7 @@ const customers = [{
 }];
 
 console.log("\n-------------------------------------");
-console.log("Customer Carts:");
+console.log("\nCustomer Carts:");
 customers.forEach((customer, index) => {
     console.log(`\nCustomert ${index + 1}:`);
     for (const [key, value] of Object.entries(customer)) {  
@@ -146,8 +146,9 @@ console.log("\nLaptop Information After Discounts Applied")
 let laptopDiscounted = products[0];
 laptopDiscounted.discountedPrice = laptopDiscounted.price * (1 - laptopDiscounted.categoryDiscount);
 for (let key in laptopDiscounted) {
+    if (key !== "finalPrice") {
     console.log(`${key}: ${laptopDiscounted [key]}`);
-}
+}}
 
 console.log("\n-------------------------------------");
 console.log("\nFinal Inventory Check");
